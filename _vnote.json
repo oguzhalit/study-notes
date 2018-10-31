@@ -1,16 +1,6 @@
 {
     "created_time": "2018-08-06T02:03:38Z",
     "files": [
-        {
-            "attachment_folder": "",
-            "attachments": [
-            ],
-            "created_time": "2018-08-06T02:26:23Z",
-            "modified_time": "2018-10-31T03:40:05Z",
-            "name": "学习笔记.md",
-            "tags": [
-            ]
-        }
     ],
     "sub_directories": [
         {
@@ -18,6 +8,45 @@
         },
         {
             "name": "xls"
+        },
+        {
+            "name": "1 JavaSE"
+        },
+        {
+            "name": "2 JavaWeb"
+        },
+        {
+            "name": "3 数据库"
+        },
+        {
+            "name": "4 软件使用技巧"
+        },
+        {
+            "name": "5 Linux"
+        },
+        {
+            "name": "6 Zookeeper"
+        },
+        {
+            "name": "7 Hadoop"
+        },
+        {
+            "name": "8 Flume"
+        },
+        {
+            "name": "9 Hive"
+        },
+        {
+            "name": "10 Sqoop"
+        },
+        {
+            "name": "11 Scala"
+        },
+        {
+            "name": "12 Spark"
+        },
+        {
+            "name": "13 Kafka"
         }
     ],
     "version": "1"
