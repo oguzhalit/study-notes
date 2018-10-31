@@ -1,0 +1,24 @@
+{
+    "created_time": "2018-08-06T02:03:38Z",
+    "files": [
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2018-08-06T02:26:23Z",
+            "modified_time": "2018-10-31T03:40:05Z",
+            "name": "学习笔记.md",
+            "tags": [
+            ]
+        }
+    ],
+    "sub_directories": [
+        {
+            "name": "img"
+        },
+        {
+            "name": "xls"
+        }
+    ],
+    "version": "1"
+}
