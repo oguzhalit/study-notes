@@ -268,3 +268,113 @@ select a.name, b.* from (select 'zhangsan' as name, 'beijing,shanghai' as locati
 | zhangsan  | shanghai  |
 +-----------+-----------+--+
 ```
+## 9.4 UDF
+### 9.4.1 自定义 UDF 函数
+1. 在 pm.xml 中添加相应的依赖
+
+```xml
+<dependency>
+    <groupId>org.apache.hive</groupId>
+    <artifactId>hive-jdbc</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.apache.hive</groupId>
+    <artifactId>hive-exec</artifactId>
+</dependency>
+```
+2. 创建一个类，让其继承 UDF，然后重写 evaluate 方法
+
+```java
+/**
+ * @author Grayson
+ * @date 2018/8/28 21:11
+ */
+public class DateStartUDF extends UDF {
+
+    /**
+     * 计算某天的起始时刻（毫秒数）
+     * @return
+     */
+
+    public long evaluate() {
+        return evaluate(new Date());
+    }
+
+    /**
+     * 获取某天的起始时刻（毫秒数）
+     * @param date
+     * @return
+     */
+
+    public long evaluate(Date date) {
+        return DateUtil.getStartTimeLong(date);
+    }
+
+    /**
+     * 获取某天的起始时刻
+     * @param dateString
+     * @return
+     */
+
+    public long evaluate(String dateString) {
+        return evaluate(DateUtil.getDateFromString1(dateString));
+    }
+
+    /**
+     * 获取某天的起始时刻
+     * @param dateString
+     * @param dateFormatString
+     * @return
+     */
+
+    public long evaluate(String dateString, String dateFormatString) {
+        return evaluate(DateUtil.getDateFromStringDefined(dateString, dateFormatString));
+    }
+
+}
+```
+3. 将项目打包成 jar 包，然后上传至服务器中
+
+![](../img/_1535509075_24701.png)
+
+4. 将 jar 包添加至 hive 的 classpath
+
+```shell
+add jar /usr/local/distribute/hive/udf/app-logs-hive-1.0-SNAPSHOT.jar
+```
+
+5. 创建函数
+5.1 创建临时函数
+
+```shell
+# getstartday 为要创建的方法名称，app.logs.udf.DateStartUDF 为 DateStartUDF 的全限定类名（包括包名和类名）
+ create function getstartday as 'app.logs.udf.DateStartUDF'
+```
+5.2 创建永久函数
+5.2.1 因为 hive 仓库在 hdfs 上，所以在创建永久函数时，需要将 jar 包上传到 hdfs 上
+
+```shell
+#创建目录
+hdfs dfs -mkdir /file/hiveUDF
+#将 jar 包上传到指定目录
+hdfs dfs -put app-logs-hive-1.0-SNAPSHOT.jar /file/hiveUDF
+```
+5.2.2 创建永久函数
+
+```shell
+create function getstartday as 'app.logs.udf.DateStartUDF' using jar 'hdfs:///file/hiveUDF/app-logs-hive-1.0-SNAPSHOT.jar';
+```
+6. 使用函数
+
+```shell
+select getstartday();
+```
+结果为 : 
+
+```shell
+OK
+_c0
+1535558400000
+Time taken: 3.749 seconds, Fetched: 1 row(s)
+```
