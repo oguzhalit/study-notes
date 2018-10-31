@@ -155,7 +155,7 @@ if (CollectionUtils.isEmpty(specGroups)) {
 
 集合是单列集合类的根接口，用于存储一系列符合某种规则的元素，它有两个重要的子接口，分别是`java.util.List`和`java.util.Set`。其中，`List`的特点是元素有序、元素可重复。`Set`的特点是元素无序，而且不可重复。`List`接口的主要实现类有`java.util.ArrayList`和`java.util.LinkedList`，`Set`接口的主要实现类有`java.util.HashSet`和`java.util.TreeSet`。
 
-![](..\img\1.png)
+![](../img/1.png)
 
 ### 1.5.3 什么是迭代
 
@@ -205,7 +205,7 @@ Set接口：无序、不可重复
 
 ### 1.5.12 Collection集合体系
 
-![1530273400549](..\img\2.png)
+![1530273400549](../img/2.png)
 
 ### 1.5.13 Map 的特点
 
