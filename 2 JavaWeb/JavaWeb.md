@@ -4653,3 +4653,46 @@ public class MqDemo {
     }
 }
 ```
+## 2.21 使用 CURL 操作 ElasticSearch
+### 2.21.1 创建索引
+
+```shell
+# 创建索引，其中 goods 为索引名
+curl -XPUT "http://hadoop11:9200/goods"
+```
+### 2.21.2 插入文档
+
+```shell
+# 向索引中插入文档，其中 docs 为类型名，1 为 _id 值，"id":1、"title":"what is elasticsearch" 分别为字段名及其对应的字段值
+curl -H "Content-Type:application/json" -XPUT "http://hadoop11:9200/goods/docs/1" -d {"id":1,"title":"what is elasticsearch"}
+```
+### 2.21.3 查看文档
+
+```shell
+# 从索引中查看文档，其中 goods 为索引名，docs 为类型名，1 为 _id 值
+curl -XGET "http://hadoop11:9200/goods/docs/1"
+```
+### 2.21.4 更新文档
+
+```shell
+# 向索引中更新文档，其中 docs 为类型名，1 为 _id 值，"id":1、"title":"what is elasticsearch" 分别为字段名及其对应的更新后的字段值，ElacticSearch 中插入和更新类似，当 _id 值存在时即为更新，当 _id 不存在时即为插入，
+curl -H "Content-Type:application/json" -XPUT "http://hadoop11:9200/goods/docs/1" -d {"id":1,"title":"what is elasticsearch"}
+```
+### 2.21.5 搜索文档
+
+```shell
+# 从索引中搜索文档，其中 goods 为索引值，docs 为类型名，title 为查询字段名，'what is elasticsearch' 为其对应的查询字段值
+curl -XGET "http://hadoop11:9200/goods/docs/_search?q=title:'what is elasticsearch'"
+```
+### 2.21.6 删除文档
+
+```shell
+# 从索引中删除文档，其中 goods 为索引值，docs 为类型名，1 为要删除文档的 _id 值
+curl -XDELETE "http://hadoop11:9200/goods/docs/1"
+```
+### 2.21.7 删除索引
+
+```shell
+# 删除索引，其中 goods 为要删除的索引对应的索引名
+curl -XDELETE "http://hadoop11:9200/goods"
+```
